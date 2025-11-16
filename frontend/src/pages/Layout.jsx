@@ -1,8 +1,14 @@
 import React from 'react'
+import LayoutHeader from '../components/LayoutHeader'
+import LayoutNavigation from '../components/LayoutNavigation'
 
 const Layout = () => {
   return (
-    <div>Layout</div>
+    <div>
+      <LayoutHeader />
+
+      <LayoutNavigation />
+    </div>
   )
 }
 

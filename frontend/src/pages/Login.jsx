@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import axios from '../axios/axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -94,6 +95,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
