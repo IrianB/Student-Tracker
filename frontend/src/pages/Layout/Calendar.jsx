@@ -1,20 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar'
+import Footer from '../../components/Footer'
+import axios from '../../axios/axios'
 
 const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState(dayjs())
     const today = dayjs()
+    const [student, setStudent] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+
+    const fetchStudent = async () => {
+        try {
+            const id = localStorage.getItem('studentId')
+            const response = await axios.get(`/student/${id}`)
+            setStudent(response.data)
+            console.log(response.data)
+        } catch (error) {
+            console.log('Error fetching student data:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchStudent().finally(() => setIsLoading(false))
+    }, [])
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className="p-6">
-                
                 <div className="flex items-center justify-between mx-10 mb-6">
                     <h3 className="text-[#EA2F14] font-semibold">
-                        Welcome, BECERA, IRIAN HARYLL CARIDO (ID Number: 20)
+                        Welcome, {student.lastName.toUpperCase()}, {student.firstName.toUpperCase()} {student.middleName.toUpperCase()} (ID Number: {student.idNumber})
                     </h3>
 
                     <button className="px-6 py-2 bg-[#EA2F14] text-[#FCEF91] font-bold rounded-lg hover:bg-[#E6521F] transition">
@@ -23,7 +45,7 @@ const Calendar = () => {
                 </div>
 
                 <div className="mx-10 flex flex-col items-start">
-                    <div className="bg-white shadow-lg rounded-xl p-4">
+                    <div>
                         <DateCalendar
                             value={selectedDate}
                             onChange={(newValue) => setSelectedDate(newValue)}
@@ -53,12 +75,17 @@ const Calendar = () => {
                         />
                     </div>
 
-                    <p className="mt-4 text-lg font-semibold text-gray-700">
+                    <p className="mt-4 text-sm text-gray-700">
                         Current Date: {today.format("MMMM DD, YYYY")}
                     </p>
                 </div>
             </div>
+
+            <Footer />
+
         </LocalizationProvider>
+
+
     )
 }
 

@@ -29,7 +29,7 @@ const Layout = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-[#FFF7E6]">
       <LayoutHeader />
 
       <div className="w-full overflow-x-auto no-scrollbar">

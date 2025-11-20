@@ -16,6 +16,10 @@ const Login = () => {
 
     try {
       const res = await axios.post('/checkStudent', { idNumber, password })
+      const studentId = res.data._id
+
+      localStorage.setItem('studentId', studentId)
+
       if(res.status === 200) {
         alert("Login successful!")
         navigate('/layout')
