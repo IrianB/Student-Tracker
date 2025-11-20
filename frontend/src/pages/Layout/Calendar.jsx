@@ -9,40 +9,32 @@ import axios from '../../axios/axios'
 const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState(dayjs())
     const today = dayjs()
-    const [student, setStudent] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    // const [student, setStudent] = useState(null)
+    // const [isLoading, setIsLoading] = useState(true)
 
-    const fetchStudent = async () => {
-        try {
-            const id = localStorage.getItem('studentId')
-            const response = await axios.get(`/student/${id}`)
-            setStudent(response.data)
-            console.log(response.data)
-        } catch (error) {
-            console.log('Error fetching student data:', error)
-        }
-    }
+    // const fetchStudent = async () => {
+    //     try {
+    //         const id = localStorage.getItem('studentId')
+    //         const response = await axios.get(`/student/${id}`)
+    //         setStudent(response.data)
+    //         console.log(response.data)
+    //     } catch (error) {
+    //         console.log('Error fetching student data:', error)
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchStudent().finally(() => setIsLoading(false))
-    }, [])
+    // useEffect(() => {
+    //     fetchStudent().finally(() => setIsLoading(false))
+    // }, [])
 
-    if (isLoading) {
-        return <div>Loading...</div>
-    }
+    // if (isLoading) {
+    //     return <div>Loading...</div>
+    // }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className="p-6">
-                <div className="flex items-center justify-between mx-10 mb-6">
-                    <h3 className="text-[#EA2F14] font-semibold">
-                        Welcome, {student.lastName.toUpperCase()}, {student.firstName.toUpperCase()} {student.middleName.toUpperCase()} (ID Number: {student.idNumber})
-                    </h3>
-
-                    <button className="px-6 py-2 bg-[#EA2F14] text-[#FCEF91] font-bold rounded-lg hover:bg-[#E6521F] transition">
-                        Logout
-                    </button>
-                </div>
+                
 
                 <div className="mx-10 flex flex-col items-start">
                     <div>
