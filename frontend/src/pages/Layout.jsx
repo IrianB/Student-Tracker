@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LayoutHeader from '../components/LayoutHeader'
 import { Outlet, useNavigate } from 'react-router-dom'
-import axios from '../axios/axios'
+import api from '../axios/axios'
 
 const Layout = () => {
 
@@ -35,9 +35,8 @@ const Layout = () => {
   const fetchStudent = async () => {
     try {
       const id = localStorage.getItem('studentId')
-      const response = await axios.get(`/student/${id}`)
+      const response = await api.get(`/student/${id}`)
       setStudent(response.data)
-      console.log(response.data)
     } catch (error) {
       console.log('Error fetching student data:', error)
     }

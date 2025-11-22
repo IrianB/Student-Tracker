@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import axios from '../axios/axios'
+import api from '../axios/axios'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -15,10 +15,11 @@ const Login = () => {
     e.preventDefault()
 
     try {
-      const res = await axios.post('/checkStudent', { idNumber, password })
-      const studentId = res.data._id
+      const res = await api.post('/login-student', { idNumber, password })
+      const studentId = res.data.student._id
 
       localStorage.setItem('studentId', studentId)
+      localStorage.setItem('token', res.data.token)
 
       if(res.status === 200) {
         alert("Login successful!")
@@ -29,6 +30,10 @@ const Login = () => {
       alert("Login failed. Please check your ID number and password.")
     }
   }
+
+  useEffect(() => {
+    localStorage.removeItem('token')
+  }, [])
 
   return (
     <div className="min-h-screen bg-[#FCEF91]">
